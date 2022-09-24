@@ -2,39 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyGame : MonoBehaviour {
+public class Calculator : MonoBehaviour {
     private List<float> numbers = new List<float>(); // to store numbers
     private List<char> operators = new List<char>(); // to store operators
     private string str;
 
     void OnGUI() {
         // to show the operations and results
-        GUI.TextField(new Rect(200, 75, 180, 50), str);
+        GUI.TextField(new Rect(350, 75, 230, 50), str);
 
         // buttons of numbers
-        if (GUI.Button(new Rect(200, 330, 110, 40), "0")) str += "0";
-        if (GUI.Button(new Rect(200, 280, 50, 40), "1")) str += "1";
-        if (GUI.Button(new Rect(260, 280, 50, 40), "2")) str += "2";
-        if (GUI.Button(new Rect(320, 280, 50, 40), "3")) str += "3";
-        if (GUI.Button(new Rect(200, 230, 50, 40), "4")) str += "4";
-        if (GUI.Button(new Rect(260, 230, 50, 40), "5")) str += "5";
-        if (GUI.Button(new Rect(320, 230, 50, 40), "6")) str += "6";
-        if (GUI.Button(new Rect(200, 180, 50, 40), "7")) str += "7";
-        if (GUI.Button(new Rect(260, 180, 50, 40), "8")) str += "8";
-        if (GUI.Button(new Rect(320, 180, 50, 40), "9")) str += "9";
+        if (GUI.Button(new Rect(350, 330, 110, 40), "0")) str += "0";
+        if (GUI.Button(new Rect(350, 280, 50, 40), "1")) str += "1";
+        if (GUI.Button(new Rect(410, 280, 50, 40), "2")) str += "2";
+        if (GUI.Button(new Rect(470, 280, 50, 40), "3")) str += "3";
+        if (GUI.Button(new Rect(350, 230, 50, 40), "4")) str += "4";
+        if (GUI.Button(new Rect(410, 230, 50, 40), "5")) str += "5";
+        if (GUI.Button(new Rect(470, 230, 50, 40), "6")) str += "6";
+        if (GUI.Button(new Rect(350, 180, 50, 40), "7")) str += "7";
+        if (GUI.Button(new Rect(410, 180, 50, 40), "8")) str += "8";
+        if (GUI.Button(new Rect(470, 180, 50, 40), "9")) str += "9";
 
         // buttons of operators
-        if (GUI.Button(new Rect(380, 230, 50, 90), "+")) str += "+";
-        if (GUI.Button(new Rect(380, 180, 50, 40), "-")) str += "-";
-        if (GUI.Button(new Rect(320, 130, 50, 40), "x")) str += "x";
-        if (GUI.Button(new Rect(380, 130, 50, 40), "/")) str += "/";
+        if (GUI.Button(new Rect(530, 230, 50, 90), "+")) str += "+";
+        if (GUI.Button(new Rect(530, 180, 50, 40), "-")) str += "-";
+        if (GUI.Button(new Rect(470, 130, 50, 40), "x")) str += "x";
+        if (GUI.Button(new Rect(530, 130, 50, 40), "/")) str += "/";
 
         // buttons of funtion
-        if (GUI.Button(new Rect(320, 330, 50, 40), ".")) str += ".";
-        if (GUI.Button(new Rect(200, 130, 50, 40), "C")) Init();
-        if (GUI.Button(new Rect(260, 130, 50, 40), "<<")) str = str.Substring(0, str.Length - 1); // button of backspace
-        if (GUI.Button(new Rect(380, 330, 50, 40), "="))
-        {
+        if (GUI.Button(new Rect(470, 330, 50, 40), ".")) str += ".";
+        if (GUI.Button(new Rect(350, 130, 50, 40), "C")) Init();
+        if (GUI.Button(new Rect(410, 130, 50, 40), "<<")) { // button of backspace
+            if (str.Length > 0)
+                str = str.Substring(0, str.Length - 1); 
+            else str = "";
+        }
+        if (GUI.Button(new Rect(530, 330, 50, 40), "=")) {
             str = calculate(str).ToString();
             numbers.Clear();
             operators.Clear();
@@ -53,7 +56,7 @@ public class MyGame : MonoBehaviour {
                 float right = numbers[i + 1];
                 if (operators[i] == 'x') 
                     tmp = left * right;
-                else if (rigth == 0)
+                else if (right == 0)
                     tmp = 999999999; // to indicate that you cannot divide by 0
                 else tmp = left / right;
                 numbers.RemoveAt(i);
